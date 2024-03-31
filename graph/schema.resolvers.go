@@ -31,7 +31,23 @@ func (r *mutationResolver) CreateCourse(ctx context.Context, input model.NewCour
 
 // Categories is the resolver for the categories field.
 func (r *queryResolver) Categories(ctx context.Context) ([]*model.Category, error) {
-	panic(fmt.Errorf("not implemented: Categories - categories"))
+	categories, error := r.CategoryDB.FindAll()
+
+	if error != nil {
+		return nil, error
+	}
+
+	var categoryModels []*model.Category
+
+	for _, category := range categories {
+		categoryModels = append(categoryModels, &model.Category{
+			ID:          category.ID,
+			Name:        category.Name,
+			Description: &category.Description,
+		})
+	}
+
+	return categoryModels, nil
 }
 
 // Courses is the resolver for the courses field.
