@@ -8,4 +8,5 @@ import "github.com/josenaldo/fc-graphql-jom/internal/database"
 
 type Resolver struct {
 	CategoryDB *database.Category
+	CourseDB   *database.Course
 }
